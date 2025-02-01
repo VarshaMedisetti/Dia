@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Awareness and Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <div class="logo">Team3</div> <!-- Team3 as Logo -->
+    <div class="navbar-links">
+        <a href="#home" id="home-link">Home</a>
+        <a href="#datainfo" id="data-info-link">Data Info</a>
+        <a href="#prediction" id="prediction-link">Prediction</a>
+        <a href="#precautions" id="precautions-link">Visualization</a>
+        <a href="#tips" id="tips-link">HealthCare Tips</a>
+        <a href="#aboutus">Team Details</a>
+    </div>
+</div>
+
+<div id="home" class="slider">
+    <!-- Slide 1: AI-Driven Diabetes Detection -->
+    <div class="slide active" style="background: url('{{ url_for('static', filename='images/t1.avif') }}') no-repeat center center/cover;">
+        <div class="text">
+            <h2>AI for Early Diabetes Detection</h2>
+            <p>Utilizing advanced  technology detect diabetes early and mitigate any associated risks</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: What is Diabetes? -->
+    <div class="slide" style="background: url('{{ url_for('static', filename='images/img2.avif') }}') no-repeat center center/cover;">
+        <div class="text">
+            <h2>Understanding Diabetes</h2>
+            <p>Diabetes affects how the body processes blood sugar. Early detection and lifestyle changes are key to managing it effectively.</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Preventing Diabetes -->
+    <div class="slide" style="background: url('{{ url_for('static', filename='images/img3.avif') }}') no-repeat center center/cover;">
+        <div class="text">
+            <h2>Prevention is Key</h2>
+            <p>Adopting healthy habits, such as proper diet and exercise, can prevent the onset of diabetes. Take control of your health today.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="features">
+    <h1>Features</h1>
+
+    <div class="feature-block">
+        <img src="{{ url_for('static', filename='images/t1.jpeg') }}" alt="Data Info">
+        <div class="feature-text">
+            <h2>Data Info</h2>
+            <p>Explore and understand the data used for diabetes prediction. Get insights into the various features and their impact on the prediction model.</p>
+            <button class="btn learn-more" data-target="datainfo">Learn More</button>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <img src="{{ url_for('static', filename='images/t2.jpeg') }}" alt="Prediction">
+        <div class="feature-text">
+            <h2>Prediction</h2>
+            <p>Discover how our AI model predicts diabetes based on various factors. Experience real-time insights and prediction accuracy.</p>
+            <button class="btn learn-more" data-target="prediction">Learn More</button>
+        </div>
+    </div>
+
+    <div class="feature-block">
+        <img src="{{ url_for('static', filename='images/t3.jpeg') }}" alt="Precaution">
+        <div class="feature-text">
+            <h2>HealthCare Tips</h2>
+            <p>Learn about the lifestyle changes to prevent diabetes and maintain a healthy life.</p>
+            <button class="btn learn-more" data-target="tips">Learn More</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="tips" class="section">
+    <h1 class="health-tips-heading">Interactive Health Tips for Managing Diabetes</h1>
+
+    <div class="slideshow-container">
+        <!-- Slide 1: Balanced Diet -->
+        <div class="tip-slide fade">
+            <img src="{{ url_for('static', filename='images/food.png') }}" alt="Balanced Diet">
+            <div class="caption">Eating a well-balanced diet helps regulate blood sugar levels.</div>
+        </div>
+
+        <!-- Slide 2: Exercise -->
+        <div class="tip-slide fade">
+            <img src="{{ url_for('static', filename='images/exercise.jpg') }}" alt="Regular Exercise">
+            <div class="caption">Physical activity improves insulin sensitivity and lowers blood sugar.</div>
+        </div>
+
+        <!-- Slide 3: Hydration -->
+        <div class="tip-slide fade">
+            <img src="{{ url_for('static', filename='images/hydration.webp') }}" alt="Stay Hydrated">
+            <div class="caption">Drinking enough water helps regulate blood glucose levels.</div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </div>
+</div>
+
+<style>
+    .slideshow-container {
+        position: relative;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .tip-slide {
+        display: none;
+    }
+
+    .tip-slide img {
+    width: 100%; /* Ensures the image takes full width */
+    max-width: 600px; /* Prevents it from being too large */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 10px;
+    display: block;
+    margin: auto; /* Centers the image */
+}
+
+
+    .caption {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    .prev, .next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    .fade {
+        animation: fadeEffect 1s;
+    }
+
+    @keyframes fadeEffect {
+        from {opacity: 0.4}
+        to {opacity: 1}
+    }
+</style>
+
+<script>
+    let slideIndex = 0;
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("tip-slide");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000); // Auto-change every 5 seconds
+    }
+
+    function changeSlide(n) {
+        let slides = document.getElementsByClassName("tip-slide");
+        slides[slideIndex - 1].style.display = "none";
+        slideIndex += n;
+        if (slideIndex > slides.length) { slideIndex = 1; }
+        if (slideIndex < 1) { slideIndex = slides.length; }
+        slides[slideIndex - 1].style.display = "block";
+    }
+
+    document.addEventListener("DOMContentLoaded", showSlides);
+</script>
+
+
+<!---- Section details hidden by default -->
+<div id="datainfo" class="section" style="display:none;">
+    <div class="section-title">Data Info</div>
+
+    <h2 class="precautions-heading">Feature Explanations</h2>
+    
+
+    <div class="feature-container">
+        {% for feature, explanation in features_info.items() %}
+        <div class="feature-card clickable-feature" data-feature="{{ feature }}">
+            <div class="feature-icon">🔍</div>
+            <div class="feature-content">
+                <h3>{{ feature | replace("_", " ") | title }}</h3>
+                <p>{{ explanation }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+
+        
+        <h1 class="precautions-heading">Dataset</h1>
+        <div class="scrollable-table">
+            <div>{{ data|safe }}</div>  <!-- Display the table here -->
+        </div> 
+    </div>
+    
+</div>
+
+
+<div id="prediction" class="section" style="display:none;">
+    <div class="section-title">Prediction Section</div>
+    <p>Fill out the form below to predict the likelihood of diabetes based on your details.</p>
+
+    <form id="prediction-form">
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <label for="hypertension">Hypertension (1 for Yes, 0 for No):</label>
+        <input type="number" id="hypertension" name="hypertension" min="0" max="1" required>
+
+        <label for="heart_disease">Heart Disease (1 for Yes, 0 for No):</label>
+        <input type="number" id="heart_disease" name="heart_disease" min="0" max="1" required>
+
+        <label for="smoking_history">Smoking History:</label>
+        <select id="smoking_history" name="smoking_history">
+            <option value="never">Never</option>
+            <option value="not current">Not Current</option>
+            <option value="current">Current</option>
+        </select>
+
+        <label for="bmi">BMI:</label>
+        <input type="number" id="bmi" name="bmi" step="0.01" required>
+
+        <label for="hba1c_level">HbA1c Level:</label>
+        <input type="number" id="hba1c_level" name="hba1c_level" step="0.1" required>
+
+        <label for="blood_glucose_level">Blood Glucose Level:</label>
+        <input type="number" id="blood_glucose_level" name="blood_glucose_level" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <div id="prediction-result" style="display:none;">
+        <h2>Prediction Result</h2>
+        <p id="result-message"></p>
+    </div>
+</div>
+
+<div id="aboutus" class="section">
+    <h1 class="precautions-heading">Meet Our Team</h1>
+
+    <div class="team-container">
+        <div class="team-member">
+           
+            <div class="member-info">
+                <h2>CH. Sai Vignesh</h2>
+                <p><strong>Roll No:</strong> B21AI006</p>
+                
+            </div>
+        </div>
+
+        <div class="team-member">
+            <div class="member-info">
+                <h2>M. Varsha</h2>
+                <p><strong>Roll No:</strong> B21AI025</p>
+            </div>
+        </div>
+
+        <div class="team-member">
+            <div class="member-info">
+                <h2>G. Rahul</h2>
+                <p><strong>Roll No:</strong> B21AI054</p>
+            </div>
+        </div>
+
+        <div class="team-member">
+            <div class="member-info">
+                <h2>Yasmeen</h2>
+                <p><strong>Roll No:</strong> B21AI049</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="precautions" class="section">
+    <h1 class="precautions-heading" >Diabetes Visualization</h1>
+ 
+   
+    
+    <div class="visualization-container">
+        <!-- Age Precaution -->
+        <div class="visualization-item">
+            <h3 class="col">Age</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/Age.png') }}" 
+                     alt="Age" 
+                     class="precaution-image">
+            </div>
+        </div>
+
+        <!-- Hypertension Precaution -->
+        <div class="visualization-item">
+            <h3 class="col">Hypertension</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/hypertension.png') }}" 
+                     alt="Hypertension" 
+                     class="precaution-image">
+            </div>
+        </div>
+
+        <!-- Blood Glucose Level Precaution -->
+        <div class="visualization-item">
+            <h3 class="col">Blood Glucose Level</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/blood_glucose_level.png') }}" 
+                     alt="Blood Glucose Level" 
+                     class="precaution-image">
+            </div>
+        </div>
+
+        <!-- Heart Disease Precaution -->
+        <div class="visualization-item">
+            <h3 class="col">Heart Disease</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/heart_disease.png') }}" 
+                     alt="Heart Disease" 
+                     class="precaution-image">
+            </div>
+        </div>
+
+        <!-- BMI Precaution -->
+        <div class="visualization-item">
+            <h3 class="col">BMI</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/bmi.png') }}" 
+                     alt="BMI" 
+                     class="precaution-image">
+            </div>
+        </div>
+
+        <!-- HbA1c Level Precaution -->
+        <div class="visualization-item">
+            <h3 class="col">HbA1c Level</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/hba1c_level.png') }}" 
+                     alt="HbA1c Level" 
+                     class="precaution-image">
+            </div>
+        </div>
+        <div class="visualization-item">
+            <h3 class="col">Heat Map</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/heatmap.png') }}" 
+                     alt="Heatmap" 
+                     class="precaution-image">
+            </div>
+        </div>
+        <div class="visualization-item">
+            <h3 class="col">SHAP</h3>
+            <div class="image-block">
+                <img src="{{ url_for('static', filename='images/shap.png') }}" 
+                     alt="Shap Analysis" 
+                     class="precaution-image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="imageModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImage" src="" alt="Image">
+    <div id="caption"></div>
+</div>
+
+</body>
+</html> 
