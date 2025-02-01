@@ -108,8 +108,8 @@
         </div>
 
         <!-- Navigation Arrows -->
-        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        <a class="prev" onclick="changeSlide(-1)">❮</a>
+        <a class="next" onclick="changeSlide(1)">❯</a>
     </div>
 </div>
 
@@ -249,9 +249,12 @@
 
         <label for="smoking_history">Smoking History:</label>
         <select id="smoking_history" name="smoking_history">
-            <option value="never">Never</option>
-            <option value="not current">Not Current</option>
-            <option value="current">Current</option>
+            <option value="Never">Never</option>
+            <option value="Current">Current</option>
+            <option value="Former">Former</option>
+             <option value="Not Current">Not Current</option>
+            <option value="No Info">No Info</option>
+            <option value="Ever">Ever</option>
         </select>
 
         <label for="bmi">BMI:</label>
@@ -263,7 +266,7 @@
         <label for="blood_glucose_level">Blood Glucose Level:</label>
         <input type="number" id="blood_glucose_level" name="blood_glucose_level" required>
 
-        <button type="submit">Predict</button>
+        <button type="button" onclick="submitForm()">Predict</button>
     </form>
 
     <div id="prediction-result" style="display:none;">
@@ -394,10 +397,84 @@
 
 <!-- Modal Structure -->
 <div id="imageModal" class="modal">
-    <span class="close">&times;</span>
+    <span class="close">×</span>
     <img class="modal-content" id="modalImage" src="" alt="Image">
     <div id="caption"></div>
 </div>
 
 </body>
-</html> 
+<script>
+     async function submitForm() {
+         const form = document.getElementById('prediction-form');
+        const formData = new FormData(form);
+        const data = {};
+         formData.forEach((value, key) => {
+           data[key] = value;
+         });
+        
+        try {
+            const response = await fetch('/predict', {
+                method: 'POST',
+                 headers: {
+                   'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                document.getElementById('prediction-result').style.display = 'block';
+                document.getElementById('result-message').innerHTML = `
+                    <p><strong>Prediction:</strong> ${result.Prediction}</p>
+                    <p><strong>Probability:</strong> ${result.Probability}</p>
+                    <p><strong>Precautions:</strong> ${result.Precautions}</p>
+                     <p>${result["LIME Analysis"]}</p>
+                `;
+
+            } else {
+                 const errorData = await response.json();
+                document.getElementById('prediction-result').style.display = 'block';
+                document.getElementById('result-message').innerHTML = `<p>Error: ${errorData.error}</p>`;
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+            document.getElementById('prediction-result').style.display = 'block';
+            document.getElementById('result-message').innerHTML = `<p>An error occurred during the prediction.</p>`;
+        }
+    }
+    // Function to toggle section visibility
+    function toggleSection(sectionId) {
+        var section = document.getElementById(sectionId);
+        if (section) {
+            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+             // Close other sections
+             var sections = document.getElementsByClassName("section");
+             for(var i = 0; i < sections.length; i++){
+                 if (sections[i].id !== sectionId) {
+                     sections[i].style.display = 'none';
+                 }
+            }
+        }
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const featureButtons = document.querySelectorAll('.btn.learn-more');
+        featureButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                 const targetSectionId = this.getAttribute('data-target');
+                    toggleSection(targetSectionId);
+            });
+        });
+    
+    const navLinks = document.querySelectorAll('.navbar-links a');
+        navLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const targetSectionId = this.getAttribute('href').substring(1);
+        toggleSection(targetSectionId);
+            });
+        });
+    });
+</script>
+</html>
