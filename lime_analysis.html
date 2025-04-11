@@ -37089,25 +37089,25 @@
 /***/ })
 /******/ ]);
 //# sourceMappingURL=bundle.js.map </script></head><body>
-        <div class="lime top_div" id="top_divXU98LENR13A2DCE"></div>
+        <div class="lime top_div" id="top_divMO1NDNQ136UBP7U"></div>
         
         <script>
-        var top_div = d3.select('#top_divXU98LENR13A2DCE').classed('lime top_div', true);
+        var top_div = d3.select('#top_divMO1NDNQ136UBP7U').classed('lime top_div', true);
         
             var pp_div = top_div.append('div')
                                 .classed('lime predict_proba', true);
             var pp_svg = pp_div.append('svg').style('width', '100%');
-            var pp = new lime.PredictProba(pp_svg, ["0", "1"], [0.9659847021102905, 0.03401534631848335]);
+            var pp = new lime.PredictProba(pp_svg, ["0", "1"], [0.6207295656204224, 0.37927043437957764]);
             
         
         var exp_div;
             var exp = new lime.Explanation(["0", "1"]);
         
                 exp_div = top_div.append('div').classed('lime explanation', true);
-                exp.show([["PC1 <= -1.05", -0.5010121310952548], ["PC2 > 0.73", 0.08612715616474706], ["-0.61 < PC3 <= -0.03", 0.05003528068683275], ["PC5 > 0.39", -0.04129136846514343], ["-0.67 < PC4 <= 0.01", -0.010551751205032956]], 1, exp_div);
+                exp.show([["-0.07 < PC1 <= 1.03", 0.17935019468762942], ["-0.61 < PC3 <= -0.03", 0.053800505002277316], ["PC5 > 0.39", -0.03086041758413379], ["0.01 < PC4 <= 0.68", -0.007590016434790689], ["-0.92 < PC2 <= -0.02", -0.0024437182500171898]], 1, exp_div);
                 
         var raw_div = top_div.append('div');
-            exp.show_raw_tabular([["PC1", "-2.14", -0.5010121310952548], ["PC2", "1.23", 0.08612715616474706], ["PC3", "-0.06", 0.05003528068683275], ["PC5", "0.47", -0.04129136846514343], ["PC4", "-0.53", -0.010551751205032956]], 1, raw_div);
+            exp.show_raw_tabular([["PC1", "0.03", 0.17935019468762942], ["PC3", "-0.17", 0.053800505002277316], ["PC5", "2.88", -0.03086041758413379], ["PC4", "0.32", -0.007590016434790689], ["PC2", "-0.82", -0.0024437182500171898]], 1, raw_div);
         
         </script>
         </body></html>

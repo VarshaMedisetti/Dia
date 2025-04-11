@@ -141,7 +141,7 @@ def predict_diabetes():
         # Standardize and apply PCA
         input_scaled = scaler.transform(input_data)
         input_pca = pca.transform(input_scaled)
-
+        print("input_data: ",input_data)
         # Predict
         prediction = model.predict(input_pca)
         print('prediction: ',prediction)
